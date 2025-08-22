@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "Agentic Resume Builder"
+version = "0.1.0"
+description = "An agent-based tool using MCP and FastAPI to generate job-aligned CVs"
+authors = ["Sanjay Lalwani <sanjay.lalwani3@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.116.1"
+uvicorn = "^0.35.0"
+pydantic = "^2.11.7"
+httpx = "^0.28.1"          # Async HTTP calls
+python-dotenv = "^1.1.1"   # For .env support
+pypdf = "^6.0.0"           # If parsing PDFs
+python-docx = "^1.2.0"     # If parsing Word docs
+jinja2 = "^3.1.6"          # For CV templating
+openai = "^1.100.2"        # For OpenAI API for LLM calls
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
