@@ -51,7 +51,7 @@ Then install project dependencies:
 poetry install
 ```
 
-👉 If you want dev tools (testing, linting):  
+👉 [optional] If you want dev tools (testing, linting):  
 ```bash
 poetry install --with dev
 ```
