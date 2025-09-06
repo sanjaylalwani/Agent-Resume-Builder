@@ -26,10 +26,10 @@ class LLM_Manager:
             print(f"Warning: Failed to validate OpenAI API key: {e}")
 
     def generate_text_response(self, 
-                             selected_model: str,
-                             chat_history: List[Dict],
+                                content: str,
+                             selected_model: str = 'gpt-4',
                              temperature: float = 0.7,
-                             max_tokens: int = 10000,
+                             max_tokens: int = 5000,
                              presence_penalty: float = 0.0,
                              frequency_penalty: float = 0.0,
                              timeout: int = 30) -> Optional[str]:
@@ -38,7 +38,6 @@ class LLM_Manager:
         
         Args:
             selected_model: OpenAI model name (e.g., 'gpt-3.5-turbo', 'gpt-4')
-            chat_history: List of message dictionaries with 'role' and 'content'
             temperature: Sampling temperature (0.0-2.0)
             max_tokens: Maximum tokens to generate (1-4096+) 
             presence_penalty: Presence penalty (-2.0 to 2.0)
@@ -76,7 +75,9 @@ class LLM_Manager:
         try:
             response = self.client.chat.completions.create(
                 model=selected_model,
-                messages=chat_history,
+                messages=[
+                    {"role": "user", "content": content}
+                ],
                 temperature=temperature,
                 max_tokens=max_tokens,
                 presence_penalty=presence_penalty,

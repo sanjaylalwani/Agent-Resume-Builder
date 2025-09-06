@@ -14,5 +14,5 @@ def upload_cv_profile(job_profile: str, file: Annotated[UploadFile , File(descri
     # Read file content
     content = obj_md.pdf_to_markdown(file.file)
 
-    obj_llm.process_document(content)
-    return {"filename": file.filename, "type": file.content_type, "size": len(content), "message": content.decode('utf-8', errors='ignore')[:100] + '...'}
+    response = obj_llm.generate_text_response(content)
+    return {"filename": file.filename, "type": file.content_type, "size": len(content), "message": response}
