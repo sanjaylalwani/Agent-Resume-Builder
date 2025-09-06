@@ -27,7 +27,7 @@ class LLM_Manager:
 
     def generate_text_response(self, 
                                 content: str,
-                             selected_model: str = 'gpt-4',
+                             selected_model: str = 'gpt-4.1',
                              temperature: float = 0.7,
                              max_tokens: int = 5000,
                              presence_penalty: float = 0.0,
