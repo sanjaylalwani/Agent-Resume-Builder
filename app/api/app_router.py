@@ -13,18 +13,17 @@ router = APIRouter()
 def upload_cv_profile(job_profile: str, file: Annotated[UploadFile , File(description="Upload your CV as PDF/Docx")]):
     obj_llm = LLM_Manager()
     obj_md = MD_Manager()
-    # Read file content
-    # md_file = file.filename
     
     base, _ = os.path.splitext(file.filename)
     md_file = base + ".md"
     content = obj_md.pdf_to_markdown(file.file, md_file)
-
-    print(content)
 
     # Generate prompt
     prompt = generate_prompt(resume=content, job_profile=job_profile)
     print(prompt)
 
     response = obj_llm.generate_text_response(prompt)
+
+    obj_md.markdown_to_pdf(content, md_file.replace(".md", ".pdf"))
+
     return {"filename": file.filename, "type": file.content_type, "size": len(content), "message": response}

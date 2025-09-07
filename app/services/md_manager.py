@@ -1,6 +1,9 @@
+import re
+import markdown
+from io import StringIO
+from weasyprint import HTML, CSS
 from pdfminer.high_level import extract_pages
 from pdfminer.layout import LTTextContainer, LTChar, LTTextLine
-import re
 
 class MD_Manager:
     def __init__(self):
@@ -76,18 +79,27 @@ class MD_Manager:
             print(f"Error converting PDF to Markdown: {e}")
             return "Error"
 
-    # def pdf_to_markdown(self, pdf_path: str) -> str:
-    #     """
-    #     Convert PDF document to Markdown format.
-    #     """
-    #     # Implement PDF to Markdown conversion logic here
-    #     markdown_content = ""
-    #     return markdown_content
 
-    def markdown_to_pdf(self, markdown_content: str) -> str:
+
+    def markdown_to_pdf(self, markdown_content: str, output_path: str) -> None:
         """
         Convert Markdown content to PDF format.
         """
-        # Implement Markdown to PDF conversion logic here
-        pdf_path = ""
-        return pdf_path
+        html_content = markdown.markdown(markdown_content, extensions=['tables', 'fenced_code'])
+        
+        # Add basic CSS styling
+        css_content = """
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        h1, h2, h3 { color: #333; }
+        code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        """
+        
+        # Convert HTML to PDF
+        HTML(string=html_content).write_pdf(
+            output_path,
+            stylesheets=[CSS(string=css_content)]
+        )
