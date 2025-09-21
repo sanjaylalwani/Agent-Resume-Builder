@@ -31,7 +31,6 @@ Here is the job profile:
   - Achievements: Include any awards, recognitions, or notable accomplishments.
   - Projects: Highlight relevant projects that demonstrate skills and experience.
 
-
 ## Output Format Requirements:
 - Provide the improved resume in markdown format. Dont add any other text.
 - Ensure the resume is well-structured with clear headings and bullet points.
